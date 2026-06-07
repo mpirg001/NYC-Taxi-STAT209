@@ -12,7 +12,7 @@ This project analyzes the factors associated with total payment amounts for NYC 
 
 Repository Contents
 
-Final_project_Mahnaz_Behzad_STAT_209 (2).qmd — Main analysis file containing all data cleaning, EDA, and modeling code
+Final_project_Mahnaz_Behzad_STAT_209.qmd — Main analysis file containing all data cleaning, EDA, and modeling code
 Final_project_Mahnaz_Behzad_STAT_209.html — Rendered output of the analysis
 
 
