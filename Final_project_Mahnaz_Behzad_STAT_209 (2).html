@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mahnaz Pirgazi and Behzad FallahiFard">
+
+<title>STAT 209: Project Presentation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Final_project_Mahnaz_Behzad_STAT_209_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Final_project_Mahnaz_Behzad_STAT_209_files/libs/quarto-html/quarto.js"></script>
+<script src="Final_project_Mahnaz_Behzad_STAT_209_files/libs/quarto-html/popper.min.js"></script>
+<script src="Final_project_Mahnaz_Behzad_STAT_209_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Final_project_Mahnaz_Behzad_STAT_209_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Final_project_Mahnaz_Behzad_STAT_209_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Final_project_Mahnaz_Behzad_STAT_209_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Final_project_Mahnaz_Behzad_STAT_209_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Final_project_Mahnaz_Behzad_STAT_209_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Final_project_Mahnaz_Behzad_STAT_209_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<style>html{ scroll-behavior: smooth; }</style>
+<link href="Final_project_Mahnaz_Behzad_STAT_209_files/libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+
+<script src="Final_project_Mahnaz_Behzad_STAT_209_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<link href="Final_project_Mahnaz_Behzad_STAT_209_files/libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+
+<script src="Final_project_Mahnaz_Behzad_STAT_209_files/libs/datatables-binding-0.33/datatables.js"></script>
+
+<script src="Final_project_Mahnaz_Behzad_STAT_209_files/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
+<link href="Final_project_Mahnaz_Behzad_STAT_209_files/libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<link href="Final_project_Mahnaz_Behzad_STAT_209_files/libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+
+<script src="Final_project_Mahnaz_Behzad_STAT_209_files/libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+
+<link href="Final_project_Mahnaz_Behzad_STAT_209_files/libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="Final_project_Mahnaz_Behzad_STAT_209_files/libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+<link href="Final_project_Mahnaz_Behzad_STAT_209_files/libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+
+<script src="Final_project_Mahnaz_Behzad_STAT_209_files/libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#nyc-taxi-trip-total-payment-modellling" id="toc-nyc-taxi-trip-total-payment-modellling" class="nav-link active" data-scroll-target="#nyc-taxi-trip-total-payment-modellling">NYC Taxi Trip Total Payment Modellling</a></li>
+  <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective">Objective:</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#research-questions" id="toc-research-questions" class="nav-link" data-scroll-target="#research-questions">Research Questions</a></li>
+  <li><a href="#data-wrangling-and-preprocessing" id="toc-data-wrangling-and-preprocessing" class="nav-link" data-scroll-target="#data-wrangling-and-preprocessing">Data Wrangling and Preprocessing</a></li>
+  <li><a href="#eda" id="toc-eda" class="nav-link" data-scroll-target="#eda">EDA</a></li>
+  <li><a href="#modeling-objective" id="toc-modeling-objective" class="nav-link" data-scroll-target="#modeling-objective">Modeling Objective</a>
+  <ul class="collapse">
+  <li><a href="#setup-for-modeling" id="toc-setup-for-modeling" class="nav-link" data-scroll-target="#setup-for-modeling">Setup for Modeling</a></li>
+  <li><a href="#data-for-modeling" id="toc-data-for-modeling" class="nav-link" data-scroll-target="#data-for-modeling">Data for Modeling</a></li>
+  </ul></li>
+  <li><a href="#ols-model" id="toc-ols-model" class="nav-link" data-scroll-target="#ols-model">OLS Model</a>
+  <ul class="collapse">
+  <li><a href="#ols-test-set-evaluation" id="toc-ols-test-set-evaluation" class="nav-link" data-scroll-target="#ols-test-set-evaluation">OLS Test-Set Evaluation</a></li>
+  <li><a href="#ols-diagnostic-checks" id="toc-ols-diagnostic-checks" class="nav-link" data-scroll-target="#ols-diagnostic-checks">OLS Diagnostic Checks</a></li>
+  <li><a href="#stablize-residuals-variance" id="toc-stablize-residuals-variance" class="nav-link" data-scroll-target="#stablize-residuals-variance">Stablize residuals’ variance</a></li>
+  <li><a href="#ridge-regression" id="toc-ridge-regression" class="nav-link" data-scroll-target="#ridge-regression">Ridge Regression</a></li>
+  <li><a href="#lasso-regression" id="toc-lasso-regression" class="nav-link" data-scroll-target="#lasso-regression">LASSO Regression</a></li>
+  </ul></li>
+  <li><a href="#principal-component-regression" id="toc-principal-component-regression" class="nav-link" data-scroll-target="#principal-component-regression">Principal Component Regression</a>
+  <ul class="collapse">
+  <li><a href="#which-pcs-should-be-involved-in-the-model" id="toc-which-pcs-should-be-involved-in-the-model" class="nav-link" data-scroll-target="#which-pcs-should-be-involved-in-the-model">Which PC’s should be involved in the model?</a></li>
+  </ul></li>
+  <li><a href="#comparison-and-conclusion" id="toc-comparison-and-conclusion" class="nav-link" data-scroll-target="#comparison-and-conclusion">Comparison and Conclusion</a></li>
+  <li><a href="#acknowledgement" id="toc-acknowledgement" class="nav-link" data-scroll-target="#acknowledgement">Acknowledgement</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">STAT 209: Project Presentation</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mahnaz Pirgazi and Behzad FallahiFard </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<style>
+:root {
+  --main-blue: #1f4e79;
+  --light-blue: #eef5fb;
+  --soft-gray: #f7f9fb;
+  --border-gray: #d9e2ec;
+}
+
+body {
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.quarto-title-block .title {
+  color: var(--main-blue);
+  font-weight: 750;
+  letter-spacing: 0.2px;
+}
+
+h1 {
+  color: var(--main-blue);
+  font-weight: 750;
+  border-bottom: 3px solid var(--border-gray);
+  padding-bottom: 0.35rem;
+  margin-top: 1.4rem;
+}
+
+h2, h3 {
+  color: var(--main-blue);
+  font-weight: 700;
+  margin-top: 1.2rem;
+}
+
+p, li {
+  font-size: 1.02rem;
+}
+
+ul, ol {
+  margin-bottom: 1rem;
+}
+
+code {
+  color: #8a3a00;
+  background-color: #fff4e6;
+  border-radius: 4px;
+  padding: 0.08rem 0.22rem;
+}
+
+pre code {
+  color: inherit;
+  background-color: transparent;
+  padding: 0;
+}
+
+.cell-output-display, .figure {
+  margin-top: 0.7rem;
+  margin-bottom: 1.2rem;
+}
+
+.table, table {
+  font-size: 0.95rem;
+}
+
+.dataTables_wrapper {
+  font-size: 0.92rem;
+}
+
+.dataTables_wrapper .dataTables_caption,
+caption {
+  caption-side: top;
+  text-align: left;
+  color: var(--main-blue);
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.small {
+  font-size: 0.92rem;
+}
+
+.math.display {
+  overflow-x: auto;
+  padding: 0.25rem 0;
+}
+
+blockquote, .note-box {
+  background-color: var(--light-blue);
+  border-left: 5px solid var(--main-blue);
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border-gray);
+  margin: 1.5rem 0;
+}
+
+
+/* Presentation-style code chunks */
+.chunk-id {
+  display: inline-block;
+  margin: 0.45rem 0 0.15rem 0;
+  padding: 0.18rem 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1f4e79;
+  background: #e8f1f8;
+  border: 1px solid #c6d7e6;
+  border-radius: 999px;
+  letter-spacing: 0.2px;
+}
+
+.cell:has(.sourceCode) {
+  margin-top: 0.1rem;
+  margin-bottom: 0.9rem;
+}
+
+div.sourceCode {
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 0.1rem;
+  margin-bottom: 0.4rem;
+}
+
+pre.sourceCode {
+  margin: 0;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #cfd8e3;
+  border-radius: 10px;
+  background: #fbfcfe;
+  box-shadow: 0 2px 8px rgba(31, 78, 121, 0.08);
+  line-height: 1.25;
+  font-size: 0.88rem;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+pre.sourceCode code {
+  white-space: pre-wrap;
+  word-break: normal;
+}
+
+.cell-output, .cell-output-display {
+  border-radius: 10px;
+}
+
+.result-table {
+  font-size: 0.95rem;
+}
+
+</style>
+<section id="nyc-taxi-trip-total-payment-modellling" class="level1">
+<h1>NYC Taxi Trip Total Payment Modellling</h1>
+</section>
+<section id="objective" class="level1">
+<h1>Objective:</h1>
+<ul>
+<li>How are location, trip characteristics, payment type, trip duration, and fare-related charges associated with the total payment amount for NYC taxi trips?</li>
+</ul>
+</section>
+<section id="data" class="level1">
+<h1>Data</h1>
+<ul>
+<li><strong><code>Taxi</code></strong>: January 2024 NYC Yellow Taxi Trip Dataset.</li>
+</ul>
+<p><span class="math display">\[2,964,624 \times 19 \longrightarrow \text{ random subsample: }  296,462 \times 19\]</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-c32cb465531b92e7b5f9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c32cb465531b92e7b5f9">{"x":{"filter":"none","vertical":false,"caption":"<caption>First 4 rows of the taxi data, with variables grouped by category<\/caption>","data":[[2,2,2,2],["N","N","N","N"],["2024-01-23T18:08:56Z","2024-01-02T20:25:01Z","2024-01-31T16:57:30Z","2024-01-20T02:29:24Z"],["2024-01-23T18:15:46Z","2024-01-02T20:49:11Z","2024-01-31T17:18:11Z","2024-01-20T02:40:23Z"],[237,132,186,114],[237,252,229,234],[2,1,1,1],[0.53,13.11,1.76,1.72],[1,1,1,1],[1,2,1,1],[7.9,49.9,17.7,12.8],[2.5,1,2.5,1],[0.5,0.5,0.5,0.5],[3.6,0,7.26,3.56],[0,0,0,0],[1,1,1,1],[18,54.15,31.46,21.36],[2.5,0,2.5,2.5],[0,1.75,0,0]],"container":"<table class=\"stripe hover compact cell-border\">\n  <thead>\n    <tr>\n      <th>VendorID<\/th>\n      <th>store_and_fwd_flag<\/th>\n      <th>tpep_pickup_datetime<\/th>\n      <th>tpep_dropoff_datetime<\/th>\n      <th>PULocationID<\/th>\n      <th>DOLocationID<\/th>\n      <th>passenger_count<\/th>\n      <th>trip_distance<\/th>\n      <th>RatecodeID<\/th>\n      <th>payment_type<\/th>\n      <th>fare_amount<\/th>\n      <th>extra<\/th>\n      <th>mta_tax<\/th>\n      <th>tip_amount<\/th>\n      <th>tolls_amount<\/th>\n      <th>improvement_surcharge<\/th>\n      <th>total_amount<\/th>\n      <th>congestion_surcharge<\/th>\n      <th>Airport_fee<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"pageLength":4,"dom":"t","columnDefs":[{"className":"dt-right","targets":[0,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]},{"name":"VendorID","targets":0},{"name":"store_and_fwd_flag","targets":1},{"name":"tpep_pickup_datetime","targets":2},{"name":"tpep_dropoff_datetime","targets":3},{"name":"PULocationID","targets":4},{"name":"DOLocationID","targets":5},{"name":"passenger_count","targets":6},{"name":"trip_distance","targets":7},{"name":"RatecodeID","targets":8},{"name":"payment_type","targets":9},{"name":"fare_amount","targets":10},{"name":"extra","targets":11},{"name":"mta_tax","targets":12},{"name":"tip_amount","targets":13},{"name":"tolls_amount","targets":14},{"name":"improvement_surcharge","targets":15},{"name":"total_amount","targets":16},{"name":"congestion_surcharge","targets":17},{"name":"Airport_fee","targets":18}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="small">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Category</th>
+<th>Variables</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Trip and provider information</strong></td>
+<td><strong><code>VendorID</code></strong>, <strong><code>store_and_fwd_flag</code></strong></td>
+</tr>
+<tr class="even">
+<td><strong>Time information</strong></td>
+<td><strong><code>tpep_pickup_datetime</code></strong>, <strong><code>tpep_dropoff_datetime</code></strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Location information</strong></td>
+<td><strong><code>PULocationID</code></strong>, <strong><code>DOLocationID</code></strong></td>
+</tr>
+<tr class="even">
+<td><strong>Trip characteristics</strong></td>
+<td><strong><code>passenger_count</code></strong>, <strong><code>trip_distance</code></strong>, <strong><code>RatecodeID</code></strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Payment information</strong></td>
+<td><strong><code>payment_type</code></strong></td>
+</tr>
+<tr class="even">
+<td><strong>Fare and related charges</strong></td>
+<td><strong><code>fare_amount</code></strong>, <strong><code>extra</code></strong>, <strong><code>mta_tax</code></strong>, <strong><code>tip_amount</code></strong>, <strong><code>tolls_amount</code></strong>, <strong><code>improvement_surcharge</code></strong>, <strong><code>total_amount</code></strong>, <strong><code>congestion_surcharge</code></strong>, <strong><code>Airport_fee</code></strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong><code>zones</code></strong>: <span class="math inline">\(\quad 265 \times 4\)</span></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-0ad605b3a9f51e0f3cc8" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-0ad605b3a9f51e0f3cc8">{"x":{"filter":"none","vertical":false,"caption":"<caption>First 4 rows of the zones data<\/caption>","data":[[1,2,3,4,5,6],["EWR","Queens","Bronx","Manhattan","Staten Island","Staten Island"],["Newark Airport","Jamaica Bay","Allerton/Pelham Gardens","Alphabet City","Arden Heights","Arrochar/Fort Wadsworth"],["EWR","Boro Zone","Boro Zone","Yellow Zone","Boro Zone","Boro Zone"]],"container":"<table class=\"stripe hover compact cell-border\">\n  <thead>\n    <tr>\n      <th>LocationID<\/th>\n      <th>Borough<\/th>\n      <th>Zone<\/th>\n      <th>service_zone<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"pageLength":4,"dom":"t","columnDefs":[{"className":"dt-right","targets":0},{"name":"LocationID","targets":0},{"name":"Borough","targets":1},{"name":"Zone","targets":2},{"name":"service_zone","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="research-questions" class="level1">
+<h1>Research Questions</h1>
+<p><strong>How are location, trip characteristics, payment type, trip duration, and non-fare charges associated with the total payment amount for NYC taxi trips?</strong></p>
+<p>Specific research questions are:</p>
+<ol type="1">
+<li><p>Which variables are most strongly related to the total payment amount for a taxi trip?</p></li>
+<li><p>How do trip distance and trip duration affect the total payment amount?</p></li>
+<li><p>Do pickup and drop-off locations help explain differences in total payment amount?</p></li>
+<li><p>Are airport trips, rush-hour trips, or different payment types associated with higher total payment amounts?</p></li>
+</ol>
+</section>
+<section id="data-wrangling-and-preprocessing" class="level1">
+<h1>Data Wrangling and Preprocessing</h1>
+<ul>
+<li>Create the trip duration variable: <strong><code>trip_duration_min</code></strong></li>
+</ul>
+<p><span class="math display">\[trip\_duration\_min \textbf{ = } tpep\_dropoff\_datetime \quad \textbf{ - } \quad tpep\_pickup\_datetime\]</span></p>
+<div class="chunk-id">
+C01
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>taxi_clean <span class="ot">&lt;-</span> taxi <span class="sc">%&gt;%</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">trip_duration_min =</span> <span class="fu">as.numeric</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">difftime</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        tpep_dropoff_datetime,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        tpep_pickup_datetime,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">units =</span> <span class="st">"mins"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Remove impossible or invalid trips:</li>
+</ul>
+<div class="chunk-id">
+C02
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>taxi_clean <span class="ot">&lt;-</span> taxi_clean <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    trip_duration_min <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    trip_distance <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    fare_amount <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    passenger_count <span class="sc">&gt;=</span> <span class="dv">1</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    passenger_count <span class="sc">&lt;=</span> <span class="dv">6</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Apply reasonable limits</li>
+</ul>
+<div class="chunk-id">
+C03
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>taxi_clean <span class="ot">&lt;-</span> taxi_clean <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    trip_duration_min <span class="sc">&lt;=</span> <span class="dv">180</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    trip_distance <span class="sc">&lt;=</span> <span class="dv">100</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    fare_amount <span class="sc">&lt;=</span> <span class="dv">500</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Avoid data leakage</li>
+</ul>
+<p>Since <strong><code>total_amount</code></strong> is the response variable, including <strong><code>fare_amount</code></strong> as a predictor may create <strong>data leakage</strong>, because <strong><code>fare_amount</code></strong> is a direct component of the total payment calculation. Therefore, I remove <strong><code>fare_amount</code></strong> from the regression predictors.</p>
+<div class="chunk-id">
+C04
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>taxi_clean <span class="ot">&lt;-</span> taxi_clean <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    total_amount,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    trip_distance,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    tpep_pickup_datetime,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    trip_duration_min,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    passenger_count,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    tip_amount,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    tolls_amount,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    payment_type,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    PULocationID,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    DOLocationID</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Check skewness and possible outliers for the main numeric variables:</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_project_Mahnaz_Behzad_STAT_209_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n_before <span class="ot">&lt;-</span> <span class="fu">nrow</span>(taxi_clean)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>taxi_clean <span class="ot">&lt;-</span> taxi_clean <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    tip_amount <span class="sc">&lt;=</span> <span class="dv">8</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    tolls_amount <span class="sc">&lt;</span> <span class="dv">4</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    total_amount <span class="sc">&lt;=</span> <span class="dv">65</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    trip_distance <span class="sc">&lt;=</span> <span class="dv">8</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    trip_duration_min <span class="sc">&lt;=</span> <span class="dv">52</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>n_after <span class="ot">&lt;-</span> <span class="fu">nrow</span>(taxi_clean)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Rows before filtering:"</span>, n_before, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows before filtering: 544413 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Rows after filtering:"</span>, n_after, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows after filtering: 473750 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Rows removed:"</span>, n_before <span class="sc">-</span> n_after, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows removed: 70663 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>taxi_plot <span class="ot">&lt;-</span> taxi_clean <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    tip_amount,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    tolls_amount,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    total_amount,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    trip_distance,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    trip_duration_min</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">everything</span>(),</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"variable"</span>,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"value"</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_project_Mahnaz_Behzad_STAT_209_files/figure-html/histograms-after-outlier-filtering-1.png" class="img-fluid figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Example: remove outliers for <strong><code>trip_duration_min</code></strong> using the IQR method:</li>
+</ul>
+<p>The IQR rule keeps observations within the following range:</p>
+<p><span class="math display">\[
+LF \leq \text{observation} \leq UF
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+\begin{aligned}
+LF &amp;= Q_1 - 1.5 \times IQR, \\
+UF &amp;= Q_3 + 1.5 \times IQR.
+\end{aligned}
+\]</span></p>
+<ul>
+<li>Apply the same IQR method to the other main numeric variables:</li>
+</ul>
+<ul>
+<li>Apply a log transformation to the main skewed variables except <strong><code>tip_amount</code></strong> and <strong><code>tolls_amount</code></strong>:</li>
+</ul>
+<div class="chunk-id">
+C05
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>taxi_clean <span class="ot">&lt;-</span> taxi_clean <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_trip_duration_min =</span> <span class="fu">log1p</span>(trip_duration_min),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_trip_distance =</span> <span class="fu">log1p</span>(trip_distance),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_total_amount =</span> <span class="fu">log1p</span>(total_amount)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Apply the same IQR outlier rule again after the log transformation. The rest of the analysis uses this updated filtered dataset.</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-ce1b4068155b483c6ac8" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-ce1b4068155b483c6ac8">{"x":{"filter":"none","vertical":false,"caption":"<caption>Rows Removed by IQR Filtering After Log Transformation<\/caption>","data":[["IQR filtering after log transformation"],[432594],[432307],[287]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Step<\/th>\n      <th>Rows_Before<\/th>\n      <th>Rows_After<\/th>\n      <th>Rows_Removed<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"name":"Step","targets":0},{"name":"Rows_Before","targets":1},{"name":"Rows_After","targets":2},{"name":"Rows_Removed","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<ul>
+<li>Check histograms after log transformation:</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_project_Mahnaz_Behzad_STAT_209_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Handle missing values</li>
+</ul>
+<div class="chunk-id">
+C06
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>missing_check <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Check =</span> <span class="st">"At least one missing value"</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Result =</span> <span class="fu">any</span>(<span class="fu">is.na</span>(taxi_clean)),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Total_Missing_Values =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(taxi_clean))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  missing_check,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">rownames =</span> <span class="cn">FALSE</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-67c7602f39e4ba0aeb88" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-67c7602f39e4ba0aeb88">{"x":{"filter":"none","vertical":false,"data":[["At least one missing value"],[false],[0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Check<\/th>\n      <th>Result<\/th>\n      <th>Total_Missing_Values<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"name":"Check","targets":0},{"name":"Result","targets":1},{"name":"Total_Missing_Values","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<ul>
+<li>Remove duplicated rows</li>
+</ul>
+<div class="chunk-id">
+C07
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>duplicate_check <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Check =</span> <span class="st">"Number of duplicated rows"</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Result =</span> <span class="fu">sum</span>(<span class="fu">duplicated</span>(taxi_clean))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  duplicate_check,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">rownames =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-9cb6399c1bc534986d6b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9cb6399c1bc534986d6b">{"x":{"filter":"none","vertical":false,"data":[["Number of duplicated rows"],[0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Check<\/th>\n      <th>Result<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":1},{"name":"Check","targets":0},{"name":"Result","targets":1}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="chunk-id">
+C08
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>taxi_clean <span class="ot">&lt;-</span> taxi_clean <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Create time-based variables:</li>
+</ul>
+<div class="chunk-id">
+C09
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>taxi_clean <span class="ot">&lt;-</span> taxi_clean <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">pickup_hour =</span> <span class="fu">hour</span>(tpep_pickup_datetime),</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">pickup_day =</span> <span class="fu">wday</span>(tpep_pickup_datetime, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">week_start =</span> <span class="dv">1</span>),</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">weekend =</span> <span class="fu">ifelse</span>(pickup_day <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Sat"</span>, <span class="st">"Sun"</span>), <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">rush_hour =</span> <span class="fu">ifelse</span>(pickup_hour <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>), <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">nighttime =</span> <span class="fu">ifelse</span>(pickup_hour <span class="sc">&gt;=</span> <span class="dv">22</span> <span class="sc">|</span> pickup_hour <span class="sc">&lt;=</span> <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Merge the taxi zone lookup table</li>
+</ul>
+<div class="chunk-id">
+C10
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pickup_zones <span class="ot">&lt;-</span> zones <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">PULocationID =</span> LocationID,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">pickup_borough =</span> Borough,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">pickup_zone =</span> Zone</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>dropoff_zones <span class="ot">&lt;-</span> zones <span class="sc">%&gt;%</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">DOLocationID =</span> LocationID,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">dropoff_borough =</span> Borough,</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">dropoff_zone =</span> Zone</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>taxi_clean <span class="ot">&lt;-</span> taxi_clean <span class="sc">%&gt;%</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(pickup_zones, <span class="at">by =</span> <span class="st">"PULocationID"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(dropoff_zones, <span class="at">by =</span> <span class="st">"DOLocationID"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Remove unknown or missing boroughs</li>
+</ul>
+<div class="chunk-id">
+C11
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pickup_borough_counts <span class="ot">&lt;-</span> taxi_clean <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(pickup_borough, <span class="at">name =</span> <span class="st">"count"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  pickup_borough_counts,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"Pickup Borough Counts"</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">rownames =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b500b8edae5fba1a841a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b500b8edae5fba1a841a">{"x":{"filter":"none","vertical":false,"caption":"<caption>Pickup Borough Counts<\/caption>","data":[["Bronx","Brooklyn","EWR","Manhattan","N/A","Queens","Unknown"],[266,1253,2,426244,9,3113,1420]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>pickup_borough<\/th>\n      <th>count<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":1},{"name":"pickup_borough","targets":0},{"name":"count","targets":1}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="chunk-id">
+C12
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>taxi_clean <span class="ot">&lt;-</span> taxi_clean <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    pickup_borough <span class="sc">!=</span> <span class="st">"Unknown"</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    dropoff_borough <span class="sc">!=</span> <span class="st">"Unknown"</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(pickup_borough),</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(dropoff_borough)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Convert categorical variables to factors</li>
+</ul>
+<div class="chunk-id">
+C13
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>taxi_clean <span class="ot">&lt;-</span> taxi_clean <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">pickup_day =</span> <span class="fu">as.factor</span>(pickup_day),</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">pickup_borough =</span> <span class="fu">as.factor</span>(pickup_borough),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">dropoff_borough =</span> <span class="fu">as.factor</span>(dropoff_borough),</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">payment_type =</span> <span class="fu">as.factor</span>(payment_type)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="eda" class="level1">
+<h1>EDA</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_project_Mahnaz_Behzad_STAT_209_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_project_Mahnaz_Behzad_STAT_209_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_project_Mahnaz_Behzad_STAT_209_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="modeling-objective" class="level1">
+<h1>Modeling Objective</h1>
+<ul>
+<li>The goal is to predict <strong><code>log_total_amount</code></strong>, defined as</li>
+</ul>
+<p><span class="math display">\[
+\log(1 + \text{total\_amount})
+\]</span></p>
+<p>using trip characteristics, payment type, location variables, and time indicators.</p>
+<ul>
+<li><p>A clean modeling data set and one common train-test split are used for all models.</p></li>
+<li><p>OLS is fitted first as the baseline model and evaluated using RMSE, test-set <span class="math inline">\(R^2\)</span>, residual diagnostics, the Breusch-Pagan test, and VIF/GVIF.</p></li>
+<li><p>Because OLS shows nonconstant variance, robust standard errors and a high-leverage sensitivity check are considered.</p></li>
+<li><p>Ridge, LASSO, PCR, WLS regression, and <span class="math inline">\(C_p\)</span>-selected OLS are compared using the same test-set RMSE and test-set <span class="math inline">\(R^2\)</span>.</p></li>
+<li><p>The final model is selected based on prediction accuracy, simplicity, and interpretability.</p></li>
+</ul>
+<section id="setup-for-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="setup-for-modeling">Setup for Modeling</h2>
+</section>
+<section id="data-for-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="data-for-modeling">Data for Modeling</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>regression_data_3 <span class="ot">&lt;-</span> regression_data_2 <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    pickup_borough <span class="sc">!=</span> <span class="st">"N/A"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    dropoff_borough <span class="sc">!=</span> <span class="st">"N/A"</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-c84dd442815b258904f7" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c84dd442815b258904f7">{"x":{"filter":"none","vertical":false,"caption":"<caption>Training and Test Set Sizes<\/caption>","data":[["Training data (80%)","Test data (20%)"],[343875,85969]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Dataset<\/th>\n      <th>Number_of_Rows<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":1},{"name":"Dataset","targets":0},{"name":"Number_of_Rows","targets":1}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+</section>
+<section id="ols-model" class="level1">
+<h1>OLS Model</h1>
+<p><span class="math display">\[
+\begin{aligned}
+\log(1+\text{total\_amount})
+= \beta_0 &amp;+ \beta_1 \log(1+\text{trip\_distance}) \\[0.4em]
+&amp;\quad + \beta_2 \log(1+\text{trip\_duration\_min}) \\[0.4em]
+&amp;\quad\quad + \beta_3 \text{passenger\_count} \\[0.4em]
+&amp;\quad\quad\quad + \beta_4 \text{tip\_amount} \\[0.4em]
+&amp;\quad\quad\quad\quad + \beta_5 \text{tolls\_amount} \\[0.4em]
+&amp;\quad\quad\quad\quad\quad + \beta_6 \text{weekend} \\[0.4em]
+&amp;\quad\quad\quad\quad\quad\quad + \beta_7 \text{rush\_hour} \\[0.4em]
+&amp;\quad\quad\quad\quad\quad\quad\quad + \beta_8 \text{nighttime} \\[0.4em]
+&amp;\quad\quad\quad\quad\quad\quad\quad\quad + \boldsymbol{\gamma}^\top \text{payment\_type} \\[0.4em]
+&amp;\quad\quad\quad\quad\quad\quad\quad\quad\quad + \boldsymbol{\delta}^\top \text{pickup\_borough} \\[0.4em]
+&amp;\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad + \boldsymbol{\eta}^\top \text{dropoff\_borough} + \varepsilon .
+\end{aligned}
+\]</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b7a37a222e20816389b8" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b7a37a222e20816389b8">{"x":{"filter":"none","vertical":false,"caption":"<caption>OLS Regression Coefficients<\/caption>","data":[["(Intercept)","log_trip_distance","log_trip_duration_min","passenger_count","tip_amount","tolls_amount","payment_type2","payment_type3","payment_type4","pickup_boroughBrooklyn","pickup_boroughEWR","pickup_boroughManhattan","pickup_boroughQueens","dropoff_boroughBrooklyn","dropoff_boroughEWR","dropoff_boroughManhattan","dropoff_boroughQueens","dropoff_boroughStaten Island","weekend","rush_hour","nighttime"],[1.9308,0.2714,0.3006,0.0014,0.0504,0.0552,-0.018,-0.0126,-0.0034,-0.1006,0.3818,-0.037,0.0043,0.0253,null,0.0143,0.0389,0.0683,-0.0338,0.0028,-0.0559],[0.0049,0.0005999999999999999,0.0004,0.0001,0.0001,0.003,0.0004,0.002,0.0013,0.0063,0.0473,0.0058,0.0062,0.005,null,0.0047,0.0051,0.0668,0.0003,0.0003,0.0003],[395.4671,473.3262,801.5395,10.2443,467.7293,18.1405,-40.6503,-6.419,-2.5472,-16.0295,8.0756,-6.4171,0.6933,5.0775,null,3.0228,7.6539,1.0226,-128.4997,9.6083,-210.027],[0,0,0,0,0,0,0,0,0.0109,0,0,0,0.4881,0,null,0.0025,0,0.3065,0,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>estimate<\/th>\n      <th>std.error<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"pageLength":10,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"name":"term","targets":0},{"name":"estimate","targets":1},{"name":"std.error","targets":2},{"name":"statistic","targets":3},{"name":"p.value","targets":4}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<section id="ols-test-set-evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="ols-test-set-evaluation">OLS Test-Set Evaluation</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-8cd5ea74d2ae2ac8be57" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8cd5ea74d2ae2ac8be57">{"x":{"filter":"none","vertical":false,"caption":"<caption>OLS Test-Set Evaluation Metrics<\/caption>","data":[["OLS"],[0.066],[0.9452]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Model<\/th>\n      <th>RMSE<\/th>\n      <th>Test_R2<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":[1,2]},{"name":"Model","targets":0},{"name":"RMSE","targets":1},{"name":"Test_R2","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_project_Mahnaz_Behzad_STAT_209_files/figure-html/ols-predicted-observed-plot-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="ols-diagnostic-checks" class="level2">
+<h2 class="anchored" data-anchor-id="ols-diagnostic-checks">OLS Diagnostic Checks</h2>
+<ul>
+<li>Residuals vs Fitted Values</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_project_Mahnaz_Behzad_STAT_209_files/figure-html/ols-residual-plot-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Test for Constant Variance</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-5ce2393045346c570ba3" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-5ce2393045346c570ba3">{"x":{"filter":"none","vertical":false,"caption":"<caption>Breusch-Pagan Test for Constant Variance<\/caption>","data":[["Breusch-Pagan test"],[16401.9134],[19],[0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Test<\/th>\n      <th>Statistic<\/th>\n      <th>df<\/th>\n      <th>p_value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"name":"Test","targets":0},{"name":"Statistic","targets":1},{"name":"df","targets":2},{"name":"p_value","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<ul>
+<li>Multicollinearity Check Using VIF/GVIF</li>
+</ul>
+<p>The model includes categorical: The adjusted value, <span class="math inline">\(GVIF^{1/(2Df)}\)</span>. output: true</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-bf23a9a1fa4b7ff6b475" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-bf23a9a1fa4b7ff6b475">{"x":{"filter":"none","vertical":false,"caption":"<caption>Terms Removed Before Computing GVIF Due to Aliased Coefficients<\/caption>","data":[["dropoff_borough"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Dropped_Aliased_Term<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"name":"Dropped_Aliased_Term","targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-28e12ce16c9658bcaae5" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-28e12ce16c9658bcaae5">{"x":{"filter":"none","vertical":false,"caption":"<caption>OLS Multicollinearity Check Using GVIF and Adjusted GVIF<\/caption>","data":[["log_trip_distance","log_trip_duration_min","passenger_count","tip_amount","tolls_amount","payment_type","pickup_borough","weekend","rush_hour","nighttime"],[2.6889,2.7344,1.008,2.3835,1.0006,2.0268,1.037,1.022,1.2267,1.2358],[1,1,1,1,1,3,4,1,1,1],[1.6398,1.6536,1.004,1.5439,1.0003,1.125,1.0045,1.011,1.1076,1.1117]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Variable<\/th>\n      <th>GVIF<\/th>\n      <th>Df<\/th>\n      <th>Adjusted_GVIF<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"pageLength":15,"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"name":"Variable","targets":0},{"name":"GVIF","targets":1},{"name":"Df","targets":2},{"name":"Adjusted_GVIF","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,15,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="stablize-residuals-variance" class="level2">
+<h2 class="anchored" data-anchor-id="stablize-residuals-variance">Stablize residuals’ variance</h2>
+<ul>
+<li>Weighted Least Squares (WLS): failed</li>
+<li>Variable Selection (Mallows’ <span class="math inline">\(C_p\)</span>): failed</li>
+</ul>
+</section>
+<section id="ridge-regression" class="level2">
+<h2 class="anchored" data-anchor-id="ridge-regression">Ridge Regression</h2>
+<p><span class="math display">\[\hat{\boldsymbol{\beta}}_{\text{ridge}}
+=
+\arg\min_{\boldsymbol{\beta}}
+\left\{
+\sum_{i=1}^{n}
+\left(y_i - \mathbf{x}_i^\top \boldsymbol{\beta}\right)^2
++
+\lambda \sum_{j=1}^{p} \beta_j^2
+\right\},
+\qquad \lambda \ge 0.\]</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-057c059b0aee94b2f03b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-057c059b0aee94b2f03b">{"x":{"filter":"none","vertical":false,"caption":"<caption>Ridge Cross-Validated Lambda Values<\/caption>","data":[["lambda.min","lambda.1se"],[0.02500855864394055,0.02500855864394055]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Lambda_Type<\/th>\n      <th>Lambda_Value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":1},{"name":"Lambda_Type","targets":0},{"name":"Lambda_Value","targets":1}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_project_Mahnaz_Behzad_STAT_209_files/figure-html/ridge-cv-plot-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-2082c33de4e3f9728225" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2082c33de4e3f9728225">{"x":{"filter":"none","vertical":false,"caption":"<caption>Ridge Regression Coefficients Using lambda.min<\/caption>","data":[["(Intercept)","log_trip_distance","log_trip_duration_min","passenger_count","tip_amount","tolls_amount","payment_type2","payment_type3","payment_type4","pickup_boroughBrooklyn","pickup_boroughEWR","pickup_boroughManhattan","pickup_boroughQueens","dropoff_boroughBrooklyn","dropoff_boroughEWR","dropoff_boroughManhattan","dropoff_boroughQueens","dropoff_boroughStaten Island","weekend","rush_hour","nighttime"],[1.9818,0.2844,0.2731,0.0015,0.0473,0.0497,-0.0256,-0.0249,-0.0144,-0.0682,0.1719,-0.0056,0.0224,0.0064,0.1687,-0.0095,0.0202,0.0119,-0.033,0.0058,-0.0501]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Variable<\/th>\n      <th>Coefficient<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"pageLength":15,"columnDefs":[{"className":"dt-right","targets":1},{"name":"Variable","targets":0},{"name":"Coefficient","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,15,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-67bede31b5c6896867f5" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-67bede31b5c6896867f5">{"x":{"filter":"none","vertical":false,"caption":"<caption>Ridge Test-Set Evaluation Metrics<\/caption>","data":[["Ridge"],[0.0673],[0.9431]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Model<\/th>\n      <th>RMSE<\/th>\n      <th>Test_R2<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":[1,2]},{"name":"Model","targets":0},{"name":"RMSE","targets":1},{"name":"Test_R2","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Ridge regression is evaluated mainly through prediction performance. Since the adjusted GVIF values did not show severe multicollinearity, Ridge is not expected to greatly improve over OLS.</p>
+</section>
+<section id="lasso-regression" class="level2">
+<h2 class="anchored" data-anchor-id="lasso-regression">LASSO Regression</h2>
+<p>LASSO is another regularized model. Unlike Ridge, LASSO can shrink some coefficients exactly to zero, so it can perform variable selection.</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}}_{\text{lasso}}
+=
+\arg\min_{\boldsymbol{\beta}}
+\left\{
+\sum_{i=1}^{n}
+\left(y_i - \mathbf{x}_i^\top \boldsymbol{\beta}\right)^2
++
+\lambda \sum_{j=1}^{p} |\beta_j|
+\right\},
+\qquad \lambda \ge 0.
+\]</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-e5a49751b6406611a904" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-e5a49751b6406611a904">{"x":{"filter":"none","vertical":false,"caption":"<caption>LASSO Cross-Validated Lambda Values<\/caption>","data":[["lambda.min","lambda.1se"],[0.0005387930629020225,0.001805820257929877]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Lambda_Type<\/th>\n      <th>Lambda_Value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":1},{"name":"Lambda_Type","targets":0},{"name":"Lambda_Value","targets":1}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_project_Mahnaz_Behzad_STAT_209_files/figure-html/lasso-cv-plot-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-41def8efe67a76e082d9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-41def8efe67a76e082d9">{"x":{"filter":"none","vertical":false,"caption":"<caption>LASSO Regression Coefficients Using lambda.min<\/caption>","data":[["(Intercept)","log_trip_distance","log_trip_duration_min","passenger_count","tip_amount","tolls_amount","payment_type2","payment_type3","payment_type4","pickup_boroughBrooklyn","pickup_boroughEWR","pickup_boroughManhattan","pickup_boroughQueens","dropoff_boroughBrooklyn","dropoff_boroughEWR","dropoff_boroughManhattan","dropoff_boroughQueens","dropoff_boroughStaten Island","weekend","rush_hour","nighttime"],[1.9131,0.271,0.2997,0.0007,0.0507,0.0408,-0.0157,-0.0024,0,-0.0463,0.1784,0,0.037,0,0,-0.0028,0.0185,0,-0.0324,0.0018,-0.0552]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Variable<\/th>\n      <th>Coefficient<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"pageLength":15,"columnDefs":[{"className":"dt-right","targets":1},{"name":"Variable","targets":0},{"name":"Coefficient","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,15,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-1702922b842939998711" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1702922b842939998711">{"x":{"filter":"none","vertical":false,"caption":"<caption>Nonzero LASSO Coefficients Using lambda.min<\/caption>","data":[["(Intercept)","log_trip_distance","log_trip_duration_min","passenger_count","tip_amount","tolls_amount","payment_type2","payment_type3","pickup_boroughBrooklyn","pickup_boroughEWR","pickup_boroughQueens","dropoff_boroughManhattan","dropoff_boroughQueens","weekend","rush_hour","nighttime"],[1.9131,0.271,0.2997,0.0007,0.0507,0.0408,-0.0157,-0.0024,-0.0463,0.1784,0.037,-0.0028,0.0185,-0.0324,0.0018,-0.0552]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Variable<\/th>\n      <th>Coefficient<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"pageLength":15,"columnDefs":[{"className":"dt-right","targets":1},{"name":"Variable","targets":0},{"name":"Coefficient","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,15,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-9c594d9de35d48da6397" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9c594d9de35d48da6397">{"x":{"filter":"none","vertical":false,"caption":"<caption>LASSO Test-Set Evaluation Metrics<\/caption>","data":[["LASSO"],[0.066],[0.9452]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Model<\/th>\n      <th>RMSE<\/th>\n      <th>Test_R2<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":[1,2]},{"name":"Model","targets":0},{"name":"RMSE","targets":1},{"name":"Test_R2","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>LASSO is useful if it achieves similar prediction accuracy to OLS while keeping a simpler model with fewer active predictors.</p>
+</section>
+</section>
+<section id="principal-component-regression" class="level1">
+<h1>Principal Component Regression</h1>
+<section id="principal-component-regression-pcr" class="level3">
+<h3 class="anchored" data-anchor-id="principal-component-regression-pcr">Principal Component Regression (PCR)</h3>
+<p>PCR replaces correlated predictors with uncorrelated principal components.</p>
+<p>Each principal component is a weighted combination of the original predictors:</p>
+<p><span class="math display">\[
+PC_k = v_{k1}X_1 + v_{k2}X_2 + \cdots + v_{kp}X_p
+\]</span></p>
+<p><span class="math display">\[
+\text{Correlated: $X=[X_1, X_2, \dots, X_p]$ $\xrightarrow{\text{PC Analysis}}$ Uncorrelated: $Z=[Z_1, Z_2, \dots, Z_p]$}
+\]</span></p>
+<p>The PCR model is then</p>
+<p><span class="math display">\[
+y = Z\beta_z + \epsilon.
+\]</span></p>
+<p>After centering and scaling <span class="math inline">\(X\)</span>, PCA is performed using singular value decomposition:</p>
+<p><span class="math display">\[
+X = UDV'
+\]</span></p>
+<p>where <span class="math inline">\(V\)</span> contains the principal component directions. The principal component matrix is</p>
+<p><span class="math display">\[
+Z = XV.
+\]</span></p>
+<p>OLS on the original predictors is</p>
+<p><span class="math display">\[
+\hat{\beta}_x = (X'X)^{-1}X'y.
+\]</span></p>
+<p>OLS on the principal components is</p>
+<p><span class="math display">\[
+\hat{\beta}_z = (Z'Z)^{-1}Z'y.
+\]</span></p>
+<p>Using all principal components gives the same fitted values as OLS:</p>
+<p><span class="math display">\[
+\hat{y} = X\hat{\beta}_x = Z\hat{\beta}_z.
+\]</span></p>
+<p>Therefore, PCR removes multicollinearity by using uncorrelated components, while keeping the same predictions when all components are used.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>pcr_model <span class="ot">&lt;-</span> <span class="fu">pcr</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                    y_train  <span class="sc">~</span>  x_train_pcr_scaled,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">scale =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">validation =</span> <span class="st">"CV"</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the earlier output, the full 21-component result was numerically unstable. Therefore, 20 components are selected to avoid the unstable final component while retaining almost all predictor variation.</p>
+</section>
+<section id="which-pcs-should-be-involved-in-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="which-pcs-should-be-involved-in-the-model">Which PC’s should be involved in the model?</h2>
+<ul>
+<li>Elbow method</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_project_Mahnaz_Behzad_STAT_209_files/figure-html/pcr-validation-plot-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-168a394df2fdb3b448d1" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-168a394df2fdb3b448d1">{"x":{"filter":"none","vertical":false,"caption":"<caption>PCR Test-Set Evaluation Metrics<\/caption>","data":[["PCR"],[3],[0.1057],[0.8593]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Model<\/th>\n      <th>Components<\/th>\n      <th>RMSE<\/th>\n      <th>Test_R2<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"name":"Model","targets":0},{"name":"Components","targets":1},{"name":"RMSE","targets":2},{"name":"Test_R2","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+</section>
+<section id="comparison-and-conclusion" class="level1">
+<h1>Comparison and Conclusion</h1>
+<p>The final comparison uses the same test data and the same two metrics for all predictive models: RMSE and test-set <span class="math inline">\(R^2\)</span>. Robust standard errors are not included as a separate predictive model because they change inference, not predictions.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-66d847b55716612ca55a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-66d847b55716612ca55a">{"x":{"filter":"none","vertical":false,"caption":"<caption>Final Model Comparison Table<\/caption>","data":[["OLS","Ridge","LASSO","PCR"],[0.066,0.0673,0.066,0.1057],[0.9452,0.9431,0.9452,0.8593]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Model<\/th>\n      <th>RMSE<\/th>\n      <th>Test_R2<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":[1,2]},{"name":"Model","targets":0},{"name":"RMSE","targets":1},{"name":"Test_R2","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<ul>
+<li><p>The initial objective was to address possible multicollinearity among predictors.</p></li>
+<li><p>After checking VIF/GVIF diagnostics, especially adjusted GVIF values, we found that multicollinearity was not a serious issue.</p></li>
+<li><p>Thus, Ridge, LASSO, and PCR were used mainly to compare prediction accuracy with OLS.</p></li>
+<li><p>Model diagnostics showed non-constant residual variance, so we shifted the focus toward heteroscedasticity.</p></li>
+<li><p>We tried several model improvements, including:</p>
+<ul>
+<li>subset model selection,</li>
+<li>PCA subset selection,</li>
+<li>different outlier filters,</li>
+<li>quadratic terms,</li>
+<li>cubic terms,</li>
+<li>interaction terms,</li>
+<li>combinations of main, interaction, quadratic, and cubic terms.</li>
+</ul></li>
+<li><p>None of these approaches fully resolved the non-constant variance issue.</p></li>
+<li><p>Therefore, the final model is more reliable for prediction than interpretation.</p></li>
+<li><p>Coefficient interpretations and p-values should be treated with caution.</p></li>
+<li><p>The final focus is prediction accuracy and model comparison, not formal inference.</p></li>
+</ul>
+</section>
+<section id="acknowledgement" class="level1">
+<h1>Acknowledgement</h1>
+<ul>
+<li>ChatGPT</li>
+<li>Some of libraries:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pls)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)   </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<script src="Final_project_Mahnaz_Behzad_STAT_209_files/libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
