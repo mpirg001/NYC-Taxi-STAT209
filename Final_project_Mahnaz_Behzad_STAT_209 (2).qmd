@@ -1,0 +1,2211 @@
+---
+title: "STAT 209: Project Presentation"
+author: "Mahnaz Pirgazi and Behzad FallahiFard"
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-location: left
+    toc-depth: 2
+    number-sections: false
+    smooth-scroll: true
+    fig-align: center
+    df-print: paged
+    code-copy: true
+    code-overflow: wrap
+execute:
+  warning: false
+  message: false
+---
+
+<style>
+:root {
+  --main-blue: #1f4e79;
+  --light-blue: #eef5fb;
+  --soft-gray: #f7f9fb;
+  --border-gray: #d9e2ec;
+}
+
+body {
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.quarto-title-block .title {
+  color: var(--main-blue);
+  font-weight: 750;
+  letter-spacing: 0.2px;
+}
+
+h1 {
+  color: var(--main-blue);
+  font-weight: 750;
+  border-bottom: 3px solid var(--border-gray);
+  padding-bottom: 0.35rem;
+  margin-top: 1.4rem;
+}
+
+h2, h3 {
+  color: var(--main-blue);
+  font-weight: 700;
+  margin-top: 1.2rem;
+}
+
+p, li {
+  font-size: 1.02rem;
+}
+
+ul, ol {
+  margin-bottom: 1rem;
+}
+
+code {
+  color: #8a3a00;
+  background-color: #fff4e6;
+  border-radius: 4px;
+  padding: 0.08rem 0.22rem;
+}
+
+pre code {
+  color: inherit;
+  background-color: transparent;
+  padding: 0;
+}
+
+.cell-output-display, .figure {
+  margin-top: 0.7rem;
+  margin-bottom: 1.2rem;
+}
+
+.table, table {
+  font-size: 0.95rem;
+}
+
+.dataTables_wrapper {
+  font-size: 0.92rem;
+}
+
+.dataTables_wrapper .dataTables_caption,
+caption {
+  caption-side: top;
+  text-align: left;
+  color: var(--main-blue);
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.small {
+  font-size: 0.92rem;
+}
+
+.math.display {
+  overflow-x: auto;
+  padding: 0.25rem 0;
+}
+
+blockquote, .note-box {
+  background-color: var(--light-blue);
+  border-left: 5px solid var(--main-blue);
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border-gray);
+  margin: 1.5rem 0;
+}
+
+
+/* Presentation-style code chunks */
+.chunk-id {
+  display: inline-block;
+  margin: 0.45rem 0 0.15rem 0;
+  padding: 0.18rem 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1f4e79;
+  background: #e8f1f8;
+  border: 1px solid #c6d7e6;
+  border-radius: 999px;
+  letter-spacing: 0.2px;
+}
+
+.cell:has(.sourceCode) {
+  margin-top: 0.1rem;
+  margin-bottom: 0.9rem;
+}
+
+div.sourceCode {
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 0.1rem;
+  margin-bottom: 0.4rem;
+}
+
+pre.sourceCode {
+  margin: 0;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #cfd8e3;
+  border-radius: 10px;
+  background: #fbfcfe;
+  box-shadow: 0 2px 8px rgba(31, 78, 121, 0.08);
+  line-height: 1.25;
+  font-size: 0.88rem;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+pre.sourceCode code {
+  white-space: pre-wrap;
+  word-break: normal;
+}
+
+.cell-output, .cell-output-display {
+  border-radius: 10px;
+}
+
+.result-table {
+  font-size: 0.95rem;
+}
+
+</style>
+# NYC Taxi Trip Total Payment Modellling
+```{r setup}
+#| echo: false
+#| warning: false
+#| message: false
+
+rm(list = ls())
+
+library(arrow)
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(DT)
+library(lubridate)
+library(broom)
+library(patchwork)
+library(corrplot)
+
+# Global plot style for the presentation
+theme_set(
+  theme_minimal(base_size = 14) +
+    theme(
+      plot.title = element_text(face = "bold", size = 16),
+      plot.subtitle = element_text(size = 12),
+      axis.title = element_text(face = "bold"),
+      strip.text = element_text(face = "bold"),
+      legend.position = "bottom"
+    )
+)
+```
+
+# Objective:
+
+- How are location, trip characteristics, payment type, trip duration, and fare-related charges associated with the total payment amount for NYC taxi trips?
+
+
+# Data
+
+```{r load-data}
+#| cache: true
+#| echo: false
+#| warning: false
+#| message: false
+
+taxi_file <- "taxi_sample_20_percent.rds"
+zones_file <- "taxi_zones.rds"
+
+taxi_url <- "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-01.parquet"
+zone_url <- "https://d37ci6vzurychx.cloudfront.net/misc/taxi_zone_lookup.csv"
+
+if (file.exists(taxi_file) & file.exists(zones_file)) {
+  
+  taxi <- readRDS(taxi_file)
+  zones <- readRDS(zones_file)
+  
+} else {
+  
+  taxi <- read_parquet(taxi_url)
+  zones <- read_csv(zone_url, show_col_types = FALSE)
+  
+  set.seed(123)
+  
+  taxi <- taxi %>%
+    slice_sample(prop = 0.20)
+  
+  saveRDS(taxi, taxi_file)
+  saveRDS(zones, zones_file)
+}
+```
+
+- **`Taxi`**:  January 2024 NYC Yellow Taxi Trip Dataset.
+
+$$2,964,624 \times 19 \longrightarrow \text{ random subsample: }  296,462 \times 19$$
+
+
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+taxi_ordered <- taxi %>%
+  select(
+    # Trip/provider information
+    VendorID,
+    store_and_fwd_flag,
+    
+    # Time information
+    tpep_pickup_datetime,
+    tpep_dropoff_datetime,
+    
+    # Location information
+    PULocationID,
+    DOLocationID,
+    
+    # Trip characteristics
+    passenger_count,
+    trip_distance,
+    RatecodeID,
+    
+    # Payment information
+    payment_type,
+    
+    # Fare and charges
+    fare_amount,
+    extra,
+    mta_tax,
+    tip_amount,
+    tolls_amount,
+    improvement_surcharge,
+    total_amount,
+    congestion_surcharge,
+    Airport_fee
+  )
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+datatable(
+  head(taxi_ordered, 4),
+  caption = "First 4 rows of the taxi data, with variables grouped by category",
+  options = list(
+    scrollX = TRUE,
+    pageLength = 4,
+    dom = "t"
+  ),
+  rownames = FALSE,
+  class = "stripe hover compact cell-border"
+)
+```
+
+
+
+
+::: {.small}
+
+| Category | Variables |
+|---|---|
+| **Trip and provider information** | **`VendorID`**, **`store_and_fwd_flag`** |
+| **Time information** | **`tpep_pickup_datetime`**, **`tpep_dropoff_datetime`** |
+| **Location information** | **`PULocationID`**, **`DOLocationID`** |
+| **Trip characteristics** | **`passenger_count`**, **`trip_distance`**, **`RatecodeID`** |
+| **Payment information** | **`payment_type`** |
+| **Fare and related charges** | **`fare_amount`**, **`extra`**, **`mta_tax`**, **`tip_amount`**, **`tolls_amount`**, **`improvement_surcharge`**, **`total_amount`**, **`congestion_surcharge`**, **`Airport_fee`** |
+
+:::
+
+
+
+
+
+- **`zones`**: $\quad 265 \times 4$
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+datatable(
+  head(zones),
+  caption = "First 4 rows of the zones data",
+  options = list(
+    scrollX = TRUE,
+    pageLength = 4,
+    dom = "t"
+  ),
+  rownames = FALSE,
+  class = "stripe hover compact cell-border"
+)
+```
+
+
+# Research Questions
+
+**How are location, trip characteristics, payment type, trip duration, and non-fare charges associated with the total payment amount for NYC taxi trips?**
+
+Specific research questions are:
+
+1. Which variables are most strongly related to the total payment amount for a taxi trip?
+
+2. How do trip distance and trip duration affect the total payment amount?
+
+3. Do pickup and drop-off locations help explain differences in total payment amount?
+
+4. Are airport trips, rush-hour trips, or different payment types associated with higher total payment amounts?
+
+# Data Wrangling and Preprocessing
+
+- Create the trip duration variable: **`trip_duration_min`**
+
+$$trip\_duration\_min \textbf{ = } tpep\_dropoff\_datetime \quad \textbf{ - } \quad tpep\_pickup\_datetime$$
+
+<div class="chunk-id">C01</div>
+
+```{r}
+#| cache: true
+#| echo: true
+#| warning: false
+#| message: false
+
+taxi_clean <- taxi %>%
+  mutate(
+    trip_duration_min = as.numeric(
+      difftime(
+        tpep_dropoff_datetime,
+        tpep_pickup_datetime,
+        units = "mins"
+      )
+    )
+  )
+```
+
+
+- Remove impossible or invalid trips:
+
+<div class="chunk-id">C02</div>
+
+```{r}
+#| cache: true
+#| echo: true
+#| warning: false
+#| message: false
+
+taxi_clean <- taxi_clean %>%
+  filter(
+    trip_duration_min > 0,
+    trip_distance > 0,
+    fare_amount > 0,
+    passenger_count >= 1,
+    passenger_count <= 6
+  )
+```
+
+- Apply reasonable limits
+
+<div class="chunk-id">C03</div>
+
+```{r}
+#| cache: true
+#| echo: true
+#| warning: false
+#| message: false
+
+taxi_clean <- taxi_clean %>%
+  filter(
+    trip_duration_min <= 180,
+    trip_distance <= 100,
+    fare_amount <= 500
+  )
+```
+
+
+- Avoid data leakage
+
+Since **`total_amount`** is the response variable, including **`fare_amount`** as a predictor may create **data leakage**, because **`fare_amount`** is a direct component of the total payment calculation. Therefore, I remove **`fare_amount`** from the regression predictors.
+
+<div class="chunk-id">C04</div>
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+taxi_clean <- taxi_clean %>%
+  select(
+    total_amount,
+    trip_distance,
+    tpep_pickup_datetime,
+    trip_duration_min,
+    passenger_count,
+    tip_amount,
+    tolls_amount,
+    payment_type,
+    PULocationID,
+    DOLocationID
+  )
+```
+
+
+
+- Check skewness and possible outliers for the main numeric variables:
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+main_vars <- c(
+  "trip_duration_min",
+  "trip_distance",
+  "tip_amount",
+  "tolls_amount",
+  "total_amount"
+)
+
+taxi_plot <- taxi_clean %>%
+  select(all_of(main_vars)) %>%
+  tidyr::pivot_longer(
+    cols = everything(),
+    names_to = "variable",
+    values_to = "value"
+  )
+```
+```{r}
+#| cache: true
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 12
+#| fig-height: 7
+
+taxi_plot_zoom <- taxi_plot %>%
+  group_by(variable) %>%
+  filter(
+    value >= quantile(value, 0.01, na.rm = TRUE),
+    value <= quantile(value, 0.99, na.rm = TRUE)
+  ) %>%
+  ungroup()
+
+ggplot(taxi_plot_zoom, aes(x = value)) +
+  geom_histogram(
+    aes(y = after_stat(density)),
+    bins = 50,
+    fill = "#2C7FB8",
+    color = "white"
+  ) +
+  geom_density(
+    color = "#D62728",
+    linewidth = 1.3
+  ) +
+  facet_wrap(~ variable, scales = "free", ncol = 2) +
+  labs(
+    title = "Histograms of Main Numeric Variables",
+    subtitle = "Displayed after removing the bottom 1% and top 1% only for visualization",
+    x = "Value",
+    y = "Density"
+  ) +
+  theme_minimal(base_size = 18) +
+  theme(
+    plot.title = element_text(face = "bold", size = 24),
+    plot.subtitle = element_text(size = 17, color = "gray30"),
+    axis.title = element_text(face = "bold", size = 18),
+    axis.text = element_text(size = 15),
+    strip.text = element_text(face = "bold", size = 18),
+    strip.background = element_rect(fill = "#EEF5FB", color = "#D9E2EC"),
+    panel.grid.minor = element_blank()
+  )
+```
+
+```{r}
+n_before <- nrow(taxi_clean)
+
+taxi_clean <- taxi_clean %>%
+  filter(
+    tip_amount <= 8,
+    tolls_amount < 4,
+    total_amount <= 65,
+    trip_distance <= 8,
+    trip_duration_min <= 52
+  )
+
+n_after <- nrow(taxi_clean)
+
+cat("Rows before filtering:", n_before, "\n")
+cat("Rows after filtering:", n_after, "\n")
+cat("Rows removed:", n_before - n_after, "\n")
+```
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+taxi_plot <- taxi_clean %>%
+  select(
+    tip_amount,
+    tolls_amount,
+    total_amount,
+    trip_distance,
+    trip_duration_min
+  ) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = "variable",
+    values_to = "value"
+  )
+```
+
+```{r histograms-after-outlier-filtering}
+#| cache: true
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 12
+#| fig-height: 7
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+taxi_plot <- taxi_clean %>%
+  select(
+    tip_amount,
+    tolls_amount,
+    total_amount,
+    trip_distance,
+    trip_duration_min
+  ) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = "variable",
+    values_to = "value"
+  )
+
+ggplot(taxi_plot, aes(x = value)) +
+  geom_histogram(
+    aes(y = after_stat(density)),
+    bins = 50,
+    fill = "#2C7FB8",
+    color = "white"
+  ) +
+  geom_density(
+    color = "#D62728",
+    linewidth = 1.3
+  ) +
+  facet_wrap(~ variable, scales = "free", ncol = 2) +
+  labs(
+    title = "Histograms of Main Numeric Variables After Outlier Filtering",
+    subtitle = "Based on the filtered dataset used for modeling",
+    x = "Value",
+    y = "Density"
+  ) +
+  theme_minimal(base_size = 18) +
+  theme(
+    plot.title = element_text(face = "bold", size = 24),
+    plot.subtitle = element_text(size = 17, color = "gray30"),
+    axis.title = element_text(face = "bold", size = 18),
+    axis.text = element_text(size = 15),
+    strip.text = element_text(face = "bold", size = 18),
+    strip.background = element_rect(fill = "#EEF5FB", color = "#D9E2EC"),
+    panel.grid.minor = element_blank()
+  )
+```
+
+
+
+- Example: remove outliers for **`trip_duration_min`** using the IQR method:
+
+The IQR rule keeps observations within the following range:
+
+$$
+LF \leq \text{observation} \leq UF
+$$
+
+where
+
+$$
+\begin{aligned}
+LF &= Q_1 - 1.5 \times IQR, \\
+UF &= Q_3 + 1.5 \times IQR.
+\end{aligned}
+$$
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+
+Q1 <- quantile(taxi_clean$trip_duration_min, 0.25, na.rm = TRUE)
+Q3 <- quantile(taxi_clean$trip_duration_min, 0.75, na.rm = TRUE)
+
+IQR_value <- Q3 - Q1
+
+lower_bound <- Q1 - 1.5 * IQR_value
+upper_bound <- Q3 + 1.5 * IQR_value
+
+taxi_clean <- taxi_clean %>%
+  filter(
+    trip_duration_min >= lower_bound,
+    trip_duration_min <= upper_bound
+  )
+```
+
+- Apply the same IQR method to the other main numeric variables:
+
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+remove_iqr_outliers <- function(data, variable) {
+  
+  Q1 <- quantile(data[[variable]], 0.25, na.rm = TRUE)
+  Q3 <- quantile(data[[variable]], 0.75, na.rm = TRUE)
+  
+  IQR_value <- Q3 - Q1
+  
+  lower_bound <- Q1 - 1.5 * IQR_value
+  upper_bound <- Q3 + 1.5 * IQR_value
+  
+  data %>%
+    filter(
+      .data[[variable]] >= lower_bound,
+      .data[[variable]] <= upper_bound
+    )
+}
+
+taxi_clean <- taxi_clean %>%
+  remove_iqr_outliers("trip_distance") %>%
+  remove_iqr_outliers("tip_amount") %>%
+  remove_iqr_outliers("total_amount")
+```
+
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+main_vars <- c(
+  "trip_duration_min",
+  "trip_distance",
+  "tip_amount",
+  "tolls_amount",
+  "total_amount"
+)
+
+taxi_plot <- taxi_clean %>%
+  select(all_of(main_vars)) %>%
+  tidyr::pivot_longer(
+    cols = everything(),
+    names_to = "variable",
+    values_to = "value"
+  )
+```
+
+
+- Apply a log transformation to the main skewed variables except **`tip_amount`** and **`tolls_amount`**:
+
+
+<div class="chunk-id">C05</div>
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+taxi_clean <- taxi_clean %>%
+  mutate(
+    log_trip_duration_min = log1p(trip_duration_min),
+    log_trip_distance = log1p(trip_distance),
+    log_total_amount = log1p(total_amount)
+  )
+```
+
+- Apply the same IQR outlier rule again after the log transformation. The rest of the analysis uses this updated filtered dataset.
+
+```{r log-iqr-outlier-filtering}
+#| cache: true
+#| echo: false
+#| warning: false
+#| message: false
+
+log_vars_for_iqr <- c(
+  "log_trip_duration_min",
+  "log_trip_distance",
+  "log_total_amount"
+)
+
+remove_iqr_outliers_with_bounds <- function(data, variable) {
+  
+  Q1 <- quantile(data[[variable]], 0.25, na.rm = TRUE)
+  Q3 <- quantile(data[[variable]], 0.75, na.rm = TRUE)
+  IQR_value <- Q3 - Q1
+  
+  lower_bound <- Q1 - 2.5 * IQR_value
+  upper_bound <- Q3 + 2.5 * IQR_value
+  
+  data %>%
+    filter(
+      .data[[variable]] >= lower_bound,
+      .data[[variable]] <= upper_bound
+    )
+}
+
+n_before_log_iqr <- nrow(taxi_clean)
+
+for (v in log_vars_for_iqr) {
+  taxi_clean <- remove_iqr_outliers_with_bounds(taxi_clean, v)
+}
+
+n_after_log_iqr <- nrow(taxi_clean)
+
+log_iqr_filter_summary <- data.frame(
+  Step = "IQR filtering after log transformation",
+  Rows_Before = n_before_log_iqr,
+  Rows_After = n_after_log_iqr,
+  Rows_Removed = n_before_log_iqr - n_after_log_iqr
+)
+
+DT::datatable(
+  log_iqr_filter_summary,
+  caption = "Rows Removed by IQR Filtering After Log Transformation",
+  rownames = FALSE,
+  options = list(dom = "t")
+)
+```
+
+- Check histograms after log transformation:
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+log_vars <- c(
+  "log_trip_duration_min",
+  "log_trip_distance",
+  "log_total_amount"
+)
+
+taxi_plot_log <- taxi_clean %>%
+  select(all_of(log_vars)) %>%
+  tidyr::pivot_longer(
+    cols = everything(),
+    names_to = "variable",
+    values_to = "value"
+  )
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 12
+#| fig-height: 6.5
+
+taxi_clean <- taxi_clean %>%
+  mutate(
+    log_trip_duration_min = log1p(trip_duration_min),
+    log_trip_distance = log1p(trip_distance),
+    log_total_amount = log1p(total_amount)
+  )
+
+log_vars <- c(
+  "log_trip_duration_min",
+  "log_trip_distance",
+  "log_total_amount"
+)
+
+taxi_plot_log <- taxi_clean %>%
+  select(all_of(log_vars)) %>%
+  tidyr::pivot_longer(
+    cols = everything(),
+    names_to = "variable",
+    values_to = "value"
+  )
+
+ggplot(taxi_plot_log, aes(x = value)) +
+  geom_histogram(
+    aes(y = after_stat(density)),
+    bins = 50,
+    fill = "#2C7FB8",
+    color = "white"
+  ) +
+  geom_density(
+    color = "#D62728",
+    linewidth = 1.3
+  ) +
+  facet_wrap(~ variable, scales = "free", ncol = 2) +
+  labs(
+    title = "Histograms of Log-Transformed Variables",
+    x = "Log(1 + Value)",
+    y = "Density"
+  ) +
+  theme_minimal(base_size = 18) +
+  theme(
+    plot.title = element_text(face = "bold", size = 24),
+    axis.title = element_text(face = "bold", size = 18),
+    axis.text = element_text(size = 15),
+    strip.text = element_text(face = "bold", size = 18),
+    strip.background = element_rect(fill = "#EEF5FB", color = "#D9E2EC"),
+    panel.grid.minor = element_blank()
+  )
+```
+
+
+- Handle missing values
+
+<div class="chunk-id">C06</div>
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+missing_check <- data.frame(
+  Check = "At least one missing value",
+  Result = any(is.na(taxi_clean)),
+  Total_Missing_Values = sum(is.na(taxi_clean))
+)
+
+DT::datatable(
+  missing_check,
+  rownames = FALSE
+)
+```
+- Remove duplicated rows
+
+<div class="chunk-id">C07</div>
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+duplicate_check <- data.frame(
+  Check = "Number of duplicated rows",
+  Result = sum(duplicated(taxi_clean))
+)
+
+DT::datatable(
+  duplicate_check,
+  rownames = FALSE,
+)
+```
+<div class="chunk-id">C08</div>
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+taxi_clean <- taxi_clean %>%
+  distinct()
+```
+
+- Create time-based variables:
+
+<div class="chunk-id">C09</div>
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+library(lubridate)
+
+taxi_clean <- taxi_clean %>%
+  mutate(
+    pickup_hour = hour(tpep_pickup_datetime),
+    pickup_day = wday(tpep_pickup_datetime, label = TRUE, week_start = 1),
+    weekend = ifelse(pickup_day %in% c("Sat", "Sun"), 1, 0),
+    rush_hour = ifelse(pickup_hour %in% c(7, 8, 9, 16, 17, 18), 1, 0),
+    nighttime = ifelse(pickup_hour >= 22 | pickup_hour <= 5, 1, 0)
+  )
+```
+
+- Merge the taxi zone lookup table
+
+<div class="chunk-id">C10</div>
+
+```{r}
+#| cache: true
+#| echo: true
+#| warning: false
+#| message: false
+
+pickup_zones <- zones %>%
+  rename(
+    PULocationID = LocationID,
+    pickup_borough = Borough,
+    pickup_zone = Zone
+  )
+
+dropoff_zones <- zones %>%
+  rename(
+    DOLocationID = LocationID,
+    dropoff_borough = Borough,
+    dropoff_zone = Zone
+  )
+
+taxi_clean <- taxi_clean %>%
+  left_join(pickup_zones, by = "PULocationID") %>%
+  left_join(dropoff_zones, by = "DOLocationID")
+```
+
+- Remove unknown or missing boroughs
+
+<div class="chunk-id">C11</div>
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+pickup_borough_counts <- taxi_clean %>%
+  count(pickup_borough, name = "count")
+
+DT::datatable(
+  pickup_borough_counts,
+  caption = "Pickup Borough Counts",
+  rownames = FALSE,
+)
+
+```
+
+<div class="chunk-id">C12</div>
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+taxi_clean <- taxi_clean %>%
+  filter(
+    pickup_borough != "Unknown",
+    dropoff_borough != "Unknown",
+    !is.na(pickup_borough),
+    !is.na(dropoff_borough)
+  )
+```
+
+- Convert categorical variables to factors
+
+<div class="chunk-id">C13</div>
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+taxi_clean <- taxi_clean %>%
+  mutate(
+    pickup_day = as.factor(pickup_day),
+    pickup_borough = as.factor(pickup_borough),
+    dropoff_borough = as.factor(dropoff_borough),
+    payment_type = as.factor(payment_type)
+  )
+```
+
+
+# EDA
+
+```{r}
+#| cache: true
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 8
+#| fig-height: 6
+
+regression_data <- taxi_clean %>% 
+  select(
+    log_total_amount,
+    log_trip_distance,
+    log_trip_duration_min,
+    passenger_count,
+    tip_amount,
+    tolls_amount,
+    payment_type,
+    pickup_borough,
+    dropoff_borough,
+    weekend,
+    rush_hour,
+    nighttime
+  ) %>% 
+  na.omit()
+
+num_vars <- regression_data %>% 
+  select(
+    log_total_amount,
+    log_trip_distance,
+    log_trip_duration_min,
+    passenger_count,
+    tip_amount,
+    tolls_amount
+  )
+
+cor_matrix <- cor(num_vars, use = "complete.obs")
+
+corrplot::corrplot(
+  cor_matrix,
+  method = "color",
+  type = "upper",
+  addCoef.col = "black",
+  tl.col = "black",
+  tl.cex = 0.85,
+  number.cex = 0.75,
+  mar = c(0, 0, 2, 0),
+  title = "Correlation Matrix of Key Numeric Variables"
+)
+```
+
+```{r}
+#| cache: true
+#| echo: false
+#| warning: false
+#| message: false
+
+set.seed(123)
+
+sample_size <- min(10000, nrow(regression_data))
+
+plot_data <- regression_data %>%
+  slice_sample(n = sample_size)
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 12
+#| fig-height: 6.5
+
+presentation_theme <- theme_minimal(base_size = 18) +
+  theme(
+    plot.title = element_text(face = "bold", size = 22),
+    plot.subtitle = element_text(size = 17, color = "gray30"),
+    axis.title = element_text(face = "bold", size = 18),
+    axis.text = element_text(size = 15),
+    legend.position = "none",
+    panel.grid.minor = element_blank(),
+    plot.caption = element_text(size = 14, color = "gray35", hjust = 0),
+    plot.margin = margin(10, 15, 10, 15)
+  )
+
+p1 <- ggplot(
+  plot_data,
+  aes(x = log_trip_distance, y = log_total_amount)
+) +
+  geom_point(alpha = 0.15, size = 0.9, color = "#2C7FB8") +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 1.2, color = "#D62728") +
+  labs(
+    title = "Trip Distance and Total Payment",
+    subtitle = "Longer trips are associated with higher total payment amounts",
+    x = "Log(1 + Trip Distance)",
+    y = "Log(1 + Total Amount)",
+    caption = "Based on a random sample of 10,000 trips."
+  ) +
+  presentation_theme
+
+p2 <- ggplot(
+  plot_data,
+  aes(x = log_trip_duration_min, y = log_total_amount)
+) +
+  geom_point(alpha = 0.15, size = 0.9, color = "#F28E2B") +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 1.2, color = "#D62728") +
+  labs(
+    title = "Trip Duration and Total Payment",
+    subtitle = "Longer trip durations are associated with higher total payment amounts",
+    x = "Log(1 + Trip Duration in Minutes)",
+    y = "Log(1 + Total Amount)",
+    caption = "Based on a random sample of 10,000 trips."
+  ) +
+  presentation_theme
+
+p1 + p2
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 12
+#| fig-height: 6.5
+
+p3 <- ggplot(
+  plot_data,
+  aes(x = pickup_borough, y = log_total_amount)
+) +
+  geom_boxplot(
+    aes(fill = pickup_borough),
+    alpha = 0.75,
+    width = 0.65,
+    outlier.alpha = 0.15,
+    outlier.size = 0.8
+  ) +
+  labs(
+    title = "Total Payment by Pickup Borough",
+    subtitle = "Distribution of total payment differs across pickup locations",
+    x = "Pickup Borough",
+    y = "Log(1 + Total Amount)",
+    caption = "Based on a random sample of 10,000 trips."
+  ) +
+  presentation_theme +
+  theme(
+    axis.text.x = element_text(size = 15, angle = 35, hjust = 1)
+  )
+
+p4 <- ggplot(
+  plot_data,
+  aes(x = factor(rush_hour), y = log_total_amount)
+) +
+  geom_boxplot(
+    aes(fill = factor(rush_hour)),
+    alpha = 0.75,
+    width = 0.55,
+    outlier.alpha = 0.15,
+    outlier.size = 0.8
+  ) +
+  scale_x_discrete(
+    labels = c("0" = "Non-Rush Hour", "1" = "Rush Hour")
+  ) +
+  labs(
+    title = "Total Payment by Rush-Hour Status",
+    subtitle = "Comparison of payment distributions by time category",
+    x = "Time Category",
+    y = "Log(1 + Total Amount)",
+    caption = "Based on a random sample of 10,000 trips."
+  ) +
+  presentation_theme
+
+p3 + p4
+```
+
+
+
+# Modeling Objective
+
+- The goal is to predict **`log_total_amount`**, defined as
+
+$$
+\log(1 + \text{total\_amount})
+$$
+
+using trip characteristics, payment type, location variables, and time indicators.
+
+- A clean modeling data set and one common train-test split are used for all models.
+
+- OLS is fitted first as the baseline model and evaluated using RMSE, test-set $R^2$, residual diagnostics, the Breusch-Pagan test, and VIF/GVIF.
+
+- Because OLS shows nonconstant variance, robust standard errors and a high-leverage sensitivity check are considered.
+
+- Ridge, LASSO, PCR, WLS regression, and $C_p$-selected OLS are compared using the same test-set RMSE and test-set $R^2$.
+
+- The final model is selected based on prediction accuracy, simplicity, and interpretability.
+
+## Setup for Modeling
+
+```{r modeling-setup}
+#| warning: false
+#| message: false
+#| echo: false
+
+library(dplyr)
+library(ggplot2)
+library(DT)
+library(broom)
+library(car)
+library(lmtest)
+library(sandwich)
+library(glmnet)
+library(pls)
+library(quantreg)
+
+compute_metrics <- function(observed, predicted) {
+  residual <- observed - predicted
+  rmse <- sqrt(mean(residual^2))
+  test_r2 <- 1 - sum(residual^2) / sum((observed - mean(observed))^2)
+  
+  data.frame(
+    RMSE = round(rmse, 4),
+    Test_R2 = round(test_r2, 4)
+  )
+}
+```
+
+## Data for Modeling
+
+```{r create-modeling-data}
+#| cache: true
+#| echo: false
+#| warning: false
+#| message: false
+
+regression_data_2 <- taxi_clean %>%
+  select(
+    log_total_amount,
+    log_trip_distance,
+    log_trip_duration_min,
+    passenger_count,
+    tip_amount,
+    tolls_amount,
+    payment_type,
+    pickup_borough,
+    dropoff_borough,
+    weekend,
+    rush_hour,
+    nighttime
+  ) %>%
+  na.omit()
+```
+
+```{r}
+#| warning: false
+#| message: false
+regression_data_3 <- regression_data_2 %>%
+  filter(
+    pickup_borough != "N/A",
+    dropoff_borough != "N/A"
+  ) %>%
+  droplevels()
+```
+
+
+
+```{r train-test-split}
+#| cache: true
+#| echo: false
+#| warning: false
+#| message: false
+
+set.seed(123)
+
+n <- nrow(regression_data_3)
+
+train_index <- sample(
+  seq_len(n),
+  size = 0.80 * n
+)
+
+train_data <- regression_data_3[train_index, ]
+test_data  <- regression_data_3[-train_index, ]
+
+split_size_table <- data.frame(
+  Dataset = c("Training data (80%)", "Test data (20%)"),
+  Number_of_Rows = c(nrow(train_data), nrow(test_data))
+)
+
+DT::datatable(
+  split_size_table,
+  caption = "Training and Test Set Sizes",
+  rownames = FALSE,
+  options = list(dom = "t")
+)
+```
+
+# OLS Model
+
+$$
+\begin{aligned}
+\log(1+\text{total\_amount})
+= \beta_0 &+ \beta_1 \log(1+\text{trip\_distance}) \\[0.4em]
+&\quad + \beta_2 \log(1+\text{trip\_duration\_min}) \\[0.4em]
+&\quad\quad + \beta_3 \text{passenger\_count} \\[0.4em]
+&\quad\quad\quad + \beta_4 \text{tip\_amount} \\[0.4em]
+&\quad\quad\quad\quad + \beta_5 \text{tolls\_amount} \\[0.4em]
+&\quad\quad\quad\quad\quad + \beta_6 \text{weekend} \\[0.4em]
+&\quad\quad\quad\quad\quad\quad + \beta_7 \text{rush\_hour} \\[0.4em]
+&\quad\quad\quad\quad\quad\quad\quad + \beta_8 \text{nighttime} \\[0.4em]
+&\quad\quad\quad\quad\quad\quad\quad\quad + \boldsymbol{\gamma}^\top \text{payment\_type} \\[0.4em]
+&\quad\quad\quad\quad\quad\quad\quad\quad\quad + \boldsymbol{\delta}^\top \text{pickup\_borough} \\[0.4em]
+&\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad + \boldsymbol{\eta}^\top \text{dropoff\_borough} + \varepsilon .
+\end{aligned} 
+$$
+
+```{r ols-fit}
+#| cache: true
+#| echo: false
+#| warning: false
+#| message: false
+
+ols_model <- lm(
+  log_total_amount ~ log_trip_distance +
+    log_trip_duration_min +
+    passenger_count +
+    tip_amount +
+    tolls_amount +
+    payment_type +
+    pickup_borough +
+    dropoff_borough +
+    weekend +
+    rush_hour +
+    nighttime,
+  data = train_data
+)
+
+ols_coef_table <- tidy(ols_model) %>%
+  mutate(across(where(is.numeric), ~ round(.x, 4)))
+
+DT::datatable(
+  ols_coef_table,
+  caption = "OLS Regression Coefficients",
+  rownames = FALSE,
+  options = list(scrollX = TRUE, pageLength = 10)
+)
+```
+
+## OLS Test-Set Evaluation
+
+```{r}
+#| cache: true
+#| echo: false
+#| warning: false
+#| message: false
+#| 
+# Categorical variables used in the model
+cat_vars <- c("payment_type", "pickup_borough", "dropoff_borough")
+
+# Remove test rows with factor levels not seen in training
+for (v in cat_vars) {
+  
+  train_levels <- unique(train_data[[v]])
+  
+  test_data <- test_data %>%
+    filter(.data[[v]] %in% train_levels)
+  
+  train_data[[v]] <- factor(train_data[[v]], levels = train_levels)
+  test_data[[v]]  <- factor(test_data[[v]], levels = train_levels)
+}
+```
+
+
+```{r ols-evaluation}
+#| cache: true
+#| echo: false
+#| warning: false
+#| message: false
+
+ols_pred <- predict(
+  ols_model,
+  newdata = test_data
+)
+
+ols_results <- data.frame(
+  observed = test_data$log_total_amount,
+  predicted = ols_pred,
+  residual = test_data$log_total_amount - ols_pred
+)
+
+ols_metrics <- compute_metrics(
+  observed = ols_results$observed,
+  predicted = ols_results$predicted
+)
+
+ols_rmse <- ols_metrics$RMSE
+ols_test_r2 <- ols_metrics$Test_R2
+
+ols_eval_table <- data.frame(
+  Model = "OLS",
+  ols_metrics
+)
+
+DT::datatable(
+  ols_eval_table,
+  caption = "OLS Test-Set Evaluation Metrics",
+  rownames = FALSE,
+  options = list(dom = "t")
+)
+```
+
+```{r ols-predicted-observed-plot}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 8
+#| fig-height: 6
+
+ggplot(ols_results, aes(x = observed, y = predicted)) +
+  geom_point(alpha = 0.20, size = 0.8) +
+  geom_abline(
+    slope = 1,
+    intercept = 0,
+    linewidth = 1.1,
+    linetype = "dashed"
+  ) +
+  labs(
+    title = "OLS: Predicted vs Observed Values",
+    x = "Observed Log(1 + Total Amount)",
+    y = "Predicted Log(1 + Total Amount)"
+  ) +
+  theme_minimal(base_size = 16)
+```
+
+
+## OLS Diagnostic Checks
+
+
+- Residuals vs Fitted Values
+
+```{r ols-residual-plot}
+#| warning: false
+#| message: false
+#| echo: false
+#| fig-width: 8
+#| fig-height: 6
+
+ols_diag <- data.frame(
+  fitted = fitted(ols_model),
+  residual = resid(ols_model)
+)
+
+ggplot(ols_diag, aes(x = fitted, y = residual)) +
+  geom_point(alpha = 0.05, size = 0.5) +
+  geom_hline(
+    yintercept = 0,
+    linewidth = 1.1,
+    linetype = "dashed"
+  ) +
+  labs(
+    title = "OLS: Residuals vs Fitted Values",
+    x = "Fitted Values",
+    y = "Residuals"
+  ) +
+  theme_minimal(base_size = 16)
+```
+
+- Test for Constant Variance
+
+```{r ols-bp-test}
+#| warning: false
+#| message: false
+#| echo: false
+
+bp_test <- bptest(ols_model)
+
+bp_table <- data.frame(
+  Test = "Breusch-Pagan test",
+  Statistic = round(as.numeric(bp_test$statistic), 4),
+  df = as.numeric(bp_test$parameter),
+  p_value = signif(bp_test$p.value, 4)
+)
+
+DT::datatable(
+  bp_table,
+  caption = "Breusch-Pagan Test for Constant Variance",
+  rownames = FALSE,
+  options = list(dom = "t")
+)
+```
+
+
+- Multicollinearity Check Using VIF/GVIF
+
+The model includes categorical: The adjusted value, $GVIF^{1/(2Df)}$.
+output: true
+
+```{r ols-gvif-adjusted-table}
+#| warning: false
+#| message: false
+#| echo: false
+
+library(car)
+library(dplyr)
+library(DT)
+
+# Original OLS formula
+ols_formula <- log_total_amount ~ log_trip_distance +
+  log_trip_duration_min +
+  passenger_count +
+  tip_amount +
+  tolls_amount +
+  payment_type +
+  pickup_borough +
+  dropoff_borough +
+  weekend +
+  rush_hour +
+  nighttime
+
+# Make sure categorical variables are factors and unused levels are dropped
+cat_vars <- c("payment_type", "pickup_borough", "dropoff_borough")
+
+train_data <- train_data %>%
+  mutate(
+    across(all_of(cat_vars), as.factor),
+    across(all_of(cat_vars), droplevels)
+  )
+
+# Fit initial OLS model
+ols_model <- lm(
+  ols_formula,
+  data = train_data
+)
+
+# Identify aliased coefficients
+aliased_coef <- names(coef(ols_model))[is.na(coef(ols_model))]
+
+# If there are aliased coefficients, remove the corresponding model terms
+if (length(aliased_coef) > 0) {
+  
+  x_mat <- model.matrix(ols_model)
+  assign_vec <- attr(x_mat, "assign")
+  term_labels <- attr(terms(ols_model), "term.labels")
+  
+  coef_to_term <- data.frame(
+    Coefficient = colnames(x_mat),
+    Term_Index = assign_vec
+  ) %>%
+    filter(Coefficient %in% aliased_coef, Term_Index > 0) %>%
+    mutate(Term = term_labels[Term_Index])
+  
+  terms_to_drop <- unique(coef_to_term$Term)
+  
+  remaining_terms <- setdiff(term_labels, terms_to_drop)
+  
+  gvif_formula <- as.formula(
+    paste("log_total_amount ~", paste(remaining_terms, collapse = " + "))
+  )
+  
+  gvif_model <- lm(
+    gvif_formula,
+    data = train_data
+  )
+  
+} else {
+  
+  terms_to_drop <- character(0)
+  gvif_model <- ols_model
+}
+
+# Compute GVIF / Adjusted GVIF
+vif_raw <- car::vif(gvif_model)
+
+if (is.matrix(vif_raw)) {
+  
+  vif_table <- data.frame(
+    Variable = rownames(vif_raw),
+    GVIF = vif_raw[, "GVIF"],
+    Df = vif_raw[, "Df"],
+    Adjusted_GVIF = vif_raw[, "GVIF^(1/(2*Df))"]
+  ) %>%
+    mutate(
+      GVIF = round(GVIF, 4),
+      Df = round(Df, 0),
+      Adjusted_GVIF = round(Adjusted_GVIF, 4)
+    )
+  
+} else {
+  
+  vif_table <- data.frame(
+    Variable = names(vif_raw),
+    GVIF = as.numeric(vif_raw),
+    Df = 1,
+    Adjusted_GVIF = sqrt(as.numeric(vif_raw))
+  ) %>%
+    mutate(
+      GVIF = round(GVIF, 4),
+      Adjusted_GVIF = round(Adjusted_GVIF, 4)
+    )
+}
+
+# Optional: show dropped aliased terms, if any
+if (length(terms_to_drop) > 0) {
+  dropped_terms_table <- data.frame(
+    Dropped_Aliased_Term = terms_to_drop
+  )
+  
+  DT::datatable(
+    dropped_terms_table,
+    caption = "Terms Removed Before Computing GVIF Due to Aliased Coefficients",
+    rownames = FALSE,
+    options = list(dom = "t")
+  )
+}
+
+# Final GVIF table
+DT::datatable(
+  vif_table,
+  caption = "OLS Multicollinearity Check Using GVIF and Adjusted GVIF",
+  rownames = FALSE,
+  options = list(scrollX = TRUE, pageLength = 15)
+)
+```
+
+
+## Stablize residuals' variance
+
+- Weighted Least Squares (WLS): failed
+- Variable Selection (Mallows’ $C_p$): failed
+
+
+```{r aligned-model-matrices}
+#| cache: true
+#| warning: false
+#| message: false
+#| echo: false
+#| output: false
+
+## Aligned Model Matrices for Regularized and Matrix-Based Models
+
+model_formula <- log_total_amount ~ log_trip_distance +
+  log_trip_duration_min +
+  passenger_count +
+  tip_amount +
+  tolls_amount +
+  payment_type +
+  pickup_borough +
+  dropoff_borough +
+  weekend +
+  rush_hour +
+  nighttime
+
+x_all <- model.matrix(
+  model_formula,
+  data = regression_data_3
+)[, -1, drop = FALSE]
+
+y_all <- regression_data_3$log_total_amount
+
+x_train <- x_all[train_index, , drop = FALSE]
+x_test  <- x_all[-train_index, , drop = FALSE]
+
+y_train <- y_all[train_index]
+y_test  <- y_all[-train_index]
+
+matrix_dimension_table <- data.frame(
+  Matrix = c("x_train", "x_test"),
+  Rows = c(nrow(x_train), nrow(x_test)),
+  Columns = c(ncol(x_train), ncol(x_test))
+)
+
+DT::datatable(
+  matrix_dimension_table,
+  caption = "Aligned Model Matrix Dimensions",
+  rownames = FALSE,
+  options = list(dom = "t")
+)
+```
+
+## Ridge Regression
+
+$$\hat{\boldsymbol{\beta}}_{\text{ridge}}
+=
+\arg\min_{\boldsymbol{\beta}}
+\left\{
+\sum_{i=1}^{n}
+\left(y_i - \mathbf{x}_i^\top \boldsymbol{\beta}\right)^2
++
+\lambda \sum_{j=1}^{p} \beta_j^2
+\right\},
+\qquad \lambda \ge 0.$$
+
+```{r ridge-fit}
+#| cache: true
+#| warning: false
+#| message: false
+#| echo: false
+
+set.seed(123)
+
+ridge_cv <- cv.glmnet(
+  x = x_train,
+  y = y_train,
+  alpha = 0,
+  nfolds = 10,
+  standardize = TRUE
+)
+
+ridge_lambda_min <- ridge_cv$lambda.min
+ridge_lambda_1se <- ridge_cv$lambda.1se
+
+ridge_lambda_table <- data.frame(
+  Lambda_Type = c("lambda.min", "lambda.1se"),
+  Lambda_Value = c(ridge_lambda_min, ridge_lambda_1se)
+)
+
+DT::datatable(
+  ridge_lambda_table,
+  caption = "Ridge Cross-Validated Lambda Values",
+  rownames = FALSE,
+  options = list(dom = "t")
+)
+```
+
+```{r ridge-cv-plot}
+#| warning: false
+#| message: false
+#| echo: false
+#| fig-width: 8
+#| fig-height: 6
+
+plot(ridge_cv)
+```
+
+```{r ridge-coefficients}
+#| warning: false
+#| message: false
+#| echo: false
+
+ridge_coef <- coef(ridge_cv, s = ridge_lambda_min)
+
+ridge_coef_table <- data.frame(
+  Variable = rownames(ridge_coef),
+  Coefficient = as.numeric(ridge_coef)
+) %>%
+  mutate(Coefficient = round(Coefficient, 4))
+
+DT::datatable(
+  ridge_coef_table,
+  caption = "Ridge Regression Coefficients Using lambda.min",
+  rownames = FALSE,
+  options = list(scrollX = TRUE, pageLength = 15)
+)
+```
+
+```{r ridge-evaluation}
+#| cache: true
+#| warning: false
+#| message: false
+#| echo: false
+
+ridge_pred <- predict(
+  ridge_cv,
+  s = ridge_lambda_min,
+  newx = x_test
+)
+
+ridge_metrics <- compute_metrics(
+  observed = y_test,
+  predicted = as.numeric(ridge_pred)
+)
+
+ridge_rmse <- ridge_metrics$RMSE
+ridge_test_r2 <- ridge_metrics$Test_R2
+
+ridge_eval_table <- data.frame(
+  Model = "Ridge",
+  ridge_metrics
+)
+
+DT::datatable(
+  ridge_eval_table,
+  caption = "Ridge Test-Set Evaluation Metrics",
+  rownames = FALSE,
+  options = list(dom = "t")
+)
+```
+
+Ridge regression is evaluated mainly through prediction performance. Since the adjusted GVIF values did not show severe multicollinearity, Ridge is not expected to greatly improve over OLS.
+
+## LASSO Regression
+
+LASSO is another regularized model. Unlike Ridge, LASSO can shrink some coefficients exactly to zero, so it can perform variable selection.
+
+$$
+\hat{\boldsymbol{\beta}}_{\text{lasso}}
+=
+\arg\min_{\boldsymbol{\beta}}
+\left\{
+\sum_{i=1}^{n}
+\left(y_i - \mathbf{x}_i^\top \boldsymbol{\beta}\right)^2
++
+\lambda \sum_{j=1}^{p} |\beta_j|
+\right\},
+\qquad \lambda \ge 0.
+$$
+
+```{r lasso-fit}
+#| cache: true
+#| warning: false
+#| message: false
+#| echo: false
+
+set.seed(123)
+
+lasso_cv <- cv.glmnet(
+  x = x_train,
+  y = y_train,
+  alpha = 1,
+  nfolds = 10,
+  standardize = TRUE
+)
+
+lasso_lambda_min <- lasso_cv$lambda.min
+lasso_lambda_1se <- lasso_cv$lambda.1se
+
+lasso_lambda_table <- data.frame(
+  Lambda_Type = c("lambda.min", "lambda.1se"),
+  Lambda_Value = c(lasso_lambda_min, lasso_lambda_1se)
+)
+
+DT::datatable(
+  lasso_lambda_table,
+  caption = "LASSO Cross-Validated Lambda Values",
+  rownames = FALSE,
+  options = list(dom = "t")
+)
+```
+
+```{r lasso-cv-plot}
+#| warning: false
+#| message: false
+#| echo: false
+#| fig-width: 8
+#| fig-height: 6
+
+plot(lasso_cv)
+```
+
+```{r lasso-coefficients}
+#| warning: false
+#| message: false
+#| echo: false
+
+lasso_coef <- coef(lasso_cv, s = lasso_lambda_min)
+
+lasso_coef_table <- data.frame(
+  Variable = rownames(lasso_coef),
+  Coefficient = as.numeric(lasso_coef)
+) %>%
+  mutate(Coefficient = round(Coefficient, 4))
+
+DT::datatable(
+  lasso_coef_table,
+  caption = "LASSO Regression Coefficients Using lambda.min",
+  rownames = FALSE,
+  options = list(scrollX = TRUE, pageLength = 15)
+)
+
+lasso_nonzero_coef_table <- lasso_coef_table %>%
+  filter(Coefficient != 0)
+
+DT::datatable(
+  lasso_nonzero_coef_table,
+  caption = "Nonzero LASSO Coefficients Using lambda.min",
+  rownames = FALSE,
+  options = list(scrollX = TRUE, pageLength = 15)
+)
+```
+
+```{r lasso-evaluation}
+#| cache: true
+#| warning: false
+#| message: false
+#| echo: false
+
+lasso_pred <- predict(
+  lasso_cv,
+  s = lasso_lambda_min,
+  newx = x_test
+)
+
+lasso_metrics <- compute_metrics(
+  observed = y_test,
+  predicted = as.numeric(lasso_pred)
+)
+
+lasso_rmse <- lasso_metrics$RMSE
+lasso_test_r2 <- lasso_metrics$Test_R2
+
+lasso_eval_table <- data.frame(
+  Model = "LASSO",
+  lasso_metrics
+)
+
+DT::datatable(
+  lasso_eval_table,
+  caption = "LASSO Test-Set Evaluation Metrics",
+  rownames = FALSE,
+  options = list(dom = "t")
+)
+```
+
+LASSO is useful if it achieves similar prediction accuracy to OLS while keeping a simpler model with fewer active predictors.
+
+# Principal Component Regression
+
+### Principal Component Regression (PCR)
+
+PCR replaces correlated predictors with uncorrelated principal components.
+
+Each principal component is a weighted combination of the original predictors:
+
+$$
+PC_k = v_{k1}X_1 + v_{k2}X_2 + \cdots + v_{kp}X_p
+$$
+
+$$
+\text{Correlated: $X=[X_1, X_2, \dots, X_p]$ $\xrightarrow{\text{PC Analysis}}$ Uncorrelated: $Z=[Z_1, Z_2, \dots, Z_p]$}
+$$
+
+
+The PCR model is then
+
+$$
+y = Z\beta_z + \epsilon.
+$$
+
+After centering and scaling $X$, PCA is performed using singular value decomposition:
+
+$$
+X = UDV'
+$$
+
+where $V$ contains the principal component directions. The principal component matrix is
+
+$$
+Z = XV.
+$$
+
+OLS on the original predictors is
+
+$$
+\hat{\beta}_x = (X'X)^{-1}X'y.
+$$
+
+OLS on the principal components is
+
+$$
+\hat{\beta}_z = (Z'Z)^{-1}Z'y.
+$$
+
+Using all principal components gives the same fitted values as OLS:
+
+$$
+\hat{y} = X\hat{\beta}_x = Z\hat{\beta}_z.
+$$
+
+Therefore, PCR removes multicollinearity by using uncorrelated components, while keeping the same predictions when all components are used.
+
+```{r pcr-matrix-preparation}
+#| cache: true
+#| warning: false
+#| message: false
+#| echo: false
+#| output: false
+
+x_train_sds_check <- apply(x_train, 2, sd)
+near_zero_var_cols <- x_train_sds_check < 1e-8
+
+x_train_pcr <- x_train[, !near_zero_var_cols, drop = FALSE]
+x_test_pcr  <- x_test[, !near_zero_var_cols, drop = FALSE]
+
+x_train_means <- colMeans(x_train_pcr)
+x_train_sds <- apply(x_train_pcr, 2, sd)
+
+x_train_pcr_scaled <- scale(
+  x_train_pcr,
+  center = x_train_means,
+  scale = x_train_sds
+)
+
+x_test_pcr_scaled <- scale(
+  x_test_pcr,
+  center = x_train_means,
+  scale = x_train_sds
+)
+
+pcr_matrix_check <- data.frame(
+  Matrix = c("Training PCR matrix", "Test PCR matrix"),
+  Non_Finite_Values = c(
+    sum(!is.finite(x_train_pcr_scaled)),
+    sum(!is.finite(x_test_pcr_scaled))
+  )
+)
+
+DT::datatable(
+  pcr_matrix_check,
+  caption = "PCR Matrix Check",
+  rownames = FALSE,
+  options = list(dom = "t")
+)
+```
+
+```{r pcr-fit}
+#| cache: true
+#| warning: false
+#| message: false
+#| echo: true
+
+set.seed(123)
+
+pcr_model <- pcr(
+                    y_train  ~  x_train_pcr_scaled,
+  scale = FALSE,
+  validation = "CV"
+)
+```
+
+In the earlier output, the full 21-component result was numerically unstable. Therefore, 20 components are selected to avoid the unstable final component while retaining almost all predictor variation.
+
+## Which PC's should be involved in the model?
+
+- Elbow method
+
+```{r pcr-validation-plot}
+#| cache: true
+#| warning: false
+#| message: false
+#| echo: false
+#| fig-width: 8
+#| fig-height: 6
+
+# Define number of PCR components inside the chunk
+pcr_ncomp <- min(17, pcr_model$ncomp)
+
+validationplot(
+  pcr_model,
+  val.type = "MSEP",
+  estimate = "CV",
+  ncomp = 1:pcr_ncomp,  # do not include 0 here; validationplot adds the 0-component model automatically
+  ylim = c(0, 0.1),
+  xaxt = "n",
+  type = "b",
+  lty = 2,
+  col = "blue",
+  pch = 19,
+  main = "Cross-Validated MSEP for PCR by Number of Components"
+)
+
+axis(
+  side = 1,
+  at = 0:pcr_ncomp,
+  labels = 0:pcr_ncomp
+)
+```
+
+
+```{r pcr-evaluation}
+#| cache: true
+#| warning: false
+#| message: false
+#| echo: false
+pcr_ncomp <-3
+pcr_pred <- predict(
+  pcr_model,
+  newdata = data.frame(x_train_pcr_scaled = I(x_test_pcr_scaled)),
+  ncomp = pcr_ncomp
+)
+
+pcr_pred <- as.numeric(pcr_pred)
+
+pcr_metrics <- compute_metrics(
+  observed = y_test,
+  predicted = pcr_pred
+)
+
+pcr_rmse <- pcr_metrics$RMSE
+pcr_test_r2 <- pcr_metrics$Test_R2
+
+pcr_eval_table <- data.frame(
+  Model = "PCR",
+  Components = pcr_ncomp,
+  pcr_metrics
+)
+
+DT::datatable(
+  pcr_eval_table,
+  caption = "PCR Test-Set Evaluation Metrics",
+  rownames = FALSE,
+  options = list(dom = "t")
+)
+```
+
+
+
+# Comparison and Conclusion
+
+The final comparison uses the same test data and the same two metrics for all predictive models: RMSE and test-set $R^2$. Robust standard errors are not included as a separate predictive model because they change inference, not predictions.
+
+```{r final-model-comparison}
+#| cache: true
+#| warning: false
+#| message: false
+#| echo: false
+
+model_comparison <- data.frame(
+  Model = c("OLS", "Ridge", "LASSO", "PCR"),
+  RMSE = c(
+    round(ols_rmse, 4),
+    round(ridge_rmse, 4),
+    round(lasso_rmse, 4),
+    round(pcr_rmse, 4)
+  ),
+  Test_R2 = c(
+    round(ols_test_r2, 4),
+    round(ridge_test_r2, 4),
+    round(lasso_test_r2, 4),
+    round(pcr_test_r2, 4)
+  )
+)
+
+DT::datatable(
+  model_comparison,
+  caption = "Final Model Comparison Table",
+  rownames = FALSE,
+  options = list(dom = "t")
+)
+```
+
+- The initial objective was to address possible multicollinearity among predictors.
+
+- After checking VIF/GVIF diagnostics, especially adjusted GVIF values, we found that multicollinearity was not a serious issue.
+
+- Thus, Ridge, LASSO, and PCR were used mainly to compare prediction accuracy with OLS.
+
+- Model diagnostics showed non-constant residual variance, so we shifted the focus toward heteroscedasticity.
+
+- We tried several model improvements, including:
+  - subset model selection,
+  - PCA subset selection,
+  - different outlier filters,
+  - quadratic terms,
+  - cubic terms,
+  - interaction terms,
+  - combinations of main, interaction, quadratic, and cubic terms.
+
+- None of these approaches fully resolved the non-constant variance issue.
+
+- Therefore, the final model is more reliable for prediction than interpretation.
+
+- Coefficient interpretations and p-values should be treated with caution.
+
+- The final focus is prediction accuracy and model comparison, not formal inference.
+
+# Acknowledgement 
+
+- ChatGPT
+- Some of libraries:
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+library(arrow)
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(DT)
+library(glmnet)
+library(pls)
+library(lubridate)
+library(patchwork)   
+library(corrplot)
+library(tidyr)
+```
